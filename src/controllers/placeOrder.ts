@@ -10,7 +10,7 @@ const api: ByBitApi = new ByBitApi(
 
 async function makeOrder(req: Request, res: Response) {
     try {
-        console.log("Place Order Controller body=",req.body);
+        console.log(new Date()+" Place Order Controller body=",req.body);
         if (req.body) {
             let {  symbol, targetPrice, longStop, positionSide} = req.body
 
@@ -78,6 +78,7 @@ async function makeOrder(req: Request, res: Response) {
                     slLimitPrice: sl.toFixed(4),
                     positionIdx: 0,
                 });
+                console.log(new Date()+"  order executed")
                 res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
             } else {
                 console.log('Position already opened', position.result);
