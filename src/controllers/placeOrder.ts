@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { ConfigParams } from "../config/config";
-// import { BybitExchange } from "../exchange/bybitHelper";
 import { ByBitApi } from "../exchange/helper";
-import { GetWalletBalanceParamsV5 } from "bybit-api";
-import { lstat } from "fs";
 
 const api: ByBitApi = new ByBitApi(
     true,
