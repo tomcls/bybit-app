@@ -15,7 +15,7 @@ async function makeOrder(req: Request, res: Response) {
     try {
         console.log("Place Order Controller",req.body);
         if (req.body) {
-            let {  symbol, targetPrice, stopLoss, positionSide} = req.body
+            let {  symbol, targetPrice, longStop, positionSide} = req.body
 
             // Check if open position
             const position: any = await api.position({
@@ -58,7 +58,7 @@ async function makeOrder(req: Request, res: Response) {
                 const balance = currentCoin.walletBalance ?? null;
                 const qty: number = parseFloat((balance / lastPrice * 0.999).toFixed(3));
                 const tp: number = parseFloat(targetPrice);//parseFloat(lastPrice) * 1.005;
-                const sl: number = parseFloat(stopLoss);//parseFloat(lastPrice) * 0.996;
+                const sl: number = parseFloat(longStop);//parseFloat(lastPrice) * 0.996;
                 // console.log({ "balance": balance, "lastPrice": lastPrice, "qty": qty, "tp": takeProfit, "sl": stopLoss, "l": l })
 
                 const result = await api.placeOrder({
