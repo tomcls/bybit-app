@@ -13,7 +13,7 @@ const api: ByBitApi = new ByBitApi(
 
 async function makeOrder(req: Request, res: Response) {
     try {
-        console.log("Place Order Controller")
+        console.log("Place Order Controller",req.body);
         if (req.body) {
             let {  symbol, targetPrice, stopLoss, positionSide} = req.body
 
