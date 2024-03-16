@@ -4,8 +4,8 @@ import { ByBitApi } from "../exchange/helper";
 
 const api: ByBitApi = new ByBitApi(
     true,
-    ConfigParams.API_KEY,
-    ConfigParams.API_SECRET,
+    ConfigParams.BYBIT_TEST1_API_KEY,
+    ConfigParams.BYBIT_TEST1_API_SECRET,
 )
 
 async function tickers(req: Request, res: Response) {

@@ -5,8 +5,8 @@ import { SetTradingStopParamsV5 } from "bybit-api";
 
 const api: ByBitApi = new ByBitApi(
     true,
-    ConfigParams.API_KEY,
-    ConfigParams.API_SECRET,
+    ConfigParams.BYBIT_TEST1_API_KEY,
+    ConfigParams.BYBIT_TEST1_API_SECRET,
 )
 //https://bybit-exchange.github.io/docs/v5/account/wallet-balance
 async function sl(req: Request, res: Response) {
