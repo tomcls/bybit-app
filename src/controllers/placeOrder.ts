@@ -11,6 +11,7 @@ async function makeOrder(req: Request, res: Response) {
             const payload = req.body;
             let account: string = payload.account ?? null; // BYBIT_TEST1
             if (account) {
+                
                 let isTestnet = true;
                 if(account.includes("TEST")){
                     isTestnet = true;
@@ -22,7 +23,7 @@ async function makeOrder(req: Request, res: Response) {
                     ConfigParams[account + "_API_KEY"], // BYBIT_TEST1_API_KEY
                     ConfigParams[account + "_API_SECRET"],
                 )
-                
+                console.log(ConfigParams[account + "_API_SECRET"]);
                 let amount = payload.amount ?? null; // 1000$
                 let positionSide = payload.positionSide ?? null; // LONG / SHORT
                 let symbol = payload.symbol ?? null;// BTCUSDT
@@ -82,7 +83,7 @@ async function makeOrder(req: Request, res: Response) {
                     }
                     // console.log({ "balance": balance, "lastPrice": lastPrice, "qty": qty, "tp": takeProfit, "sl": stopLoss, "l": l })
 
-                    const result = await api.placeOrder({
+                    const result:any = await api.placeOrder({
                         category: 'linear',
                         symbol: symbol,
                         side: positionSide === 'LONG' ? 'Buy' : 'Sell',
@@ -102,8 +103,15 @@ async function makeOrder(req: Request, res: Response) {
                         slLimitPrice: sl.toFixed(4),
                         positionIdx: 0,
                     });
-                    console.log(new Date() + "  order executed")
-                    res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
+
+                    if(result && result.result.retCode == "0") {
+                        console.log(new Date() + "  order executed")
+                        res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
+                    } else {
+                        console.log(new Date() + "  error ")
+                        res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
+                    }
+                    
                 } else {
                     console.log('Position already opened', position.result);
                     res.status(200).json({ "message": "Position already open", "data": position.result })
