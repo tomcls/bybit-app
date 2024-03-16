@@ -104,11 +104,11 @@ async function makeOrder(req: Request, res: Response) {
                         positionIdx: 0,
                     });
 
-                    if(result && result.result.retCode == "0") {
-                        console.log(new Date() + "  order executed")
+                    if(result && result.retMsg == "OK") {
+                        console.log(new Date() + "  order executed",result)
                         res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
                     } else {
-                        console.log(new Date() + "  error ")
+                        console.log(new Date() + "  error ",result)
                         res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
                     }
                     
