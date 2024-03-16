@@ -74,9 +74,11 @@ async function makeOrder(req: Request, res: Response) {
                     const qty: number = parseFloat((amount / lastPrice * 0.999).toFixed(3));// parseFloat((balance / lastPrice * 0.999).toFixed(3));
 
                     const tp: number = parseFloat(targetPrice);//parseFloat(lastPrice) * 1.005;
-                    let sl: number = parseFloat(longStop);//parseFloat(lastPrice) * 0.996;
-                    if (positionSide === "SHORT") {
+                    let sl: number;//parseFloat(lastPrice) * 0.996;
+                    if (positionSide === "SHORT" && shortStop) {
                         sl = parseFloat(shortStop);//parseFloat(lastPrice) * 0.996;
+                    } else {
+                        sl = parseFloat(longStop);//parseFloat(lastPrice) * 0.996;
                     }
                     // console.log({ "balance": balance, "lastPrice": lastPrice, "qty": qty, "tp": takeProfit, "sl": stopLoss, "l": l })
 
