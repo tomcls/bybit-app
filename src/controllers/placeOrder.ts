@@ -27,7 +27,7 @@ async function makeOrder(req: Request, res: Response) {
                 let positionSide = payload.positionSide ?? null; // LONG / SHORT
                 let symbol = payload.symbol ?? null;// BTCUSDT
                 let leverage = payload.leverage ?? null; // 50(x)
-                let targetPrice = payload.targetPrice ?? null; // 71000$
+                let targetPrice = payload.longTarget ? payload.longTarget : payload.shortTarget; // 71000$
                 let longStop = payload.longStop ?? null; // 70000$
                 let shortStop = payload.shortStop ?? null; // 72000$
 
