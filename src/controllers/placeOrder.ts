@@ -74,12 +74,12 @@ async function makeOrder(req: Request, res: Response) {
                     const balance = currentCoin.walletBalance ?? null;
                     const qty: number = parseFloat((amount / lastPrice * 0.999).toFixed(3));// parseFloat((balance / lastPrice * 0.999).toFixed(3));
 
-                    const tp: number = parseFloat(targetPrice);//parseFloat(lastPrice) * 1.005;
+                    const tp: number = parseFloat(targetPrice.toFixed(2));//parseFloat(lastPrice) * 1.005;
                     let sl: number;//parseFloat(lastPrice) * 0.996;
                     if (positionSide === "SHORT" && shortStop) {
-                        sl = parseFloat(shortStop);//parseFloat(lastPrice) * 0.996;
+                        sl = parseFloat(shortStop.toFixed(2));//parseFloat(lastPrice) * 0.996;
                     } else {
-                        sl = parseFloat(longStop);//parseFloat(lastPrice) * 0.996;
+                        sl = parseFloat(longStop.toFixed(2));//parseFloat(lastPrice) * 0.996;
                     }
                     // console.log({ "balance": balance, "lastPrice": lastPrice, "qty": qty, "tp": takeProfit, "sl": stopLoss, "l": l })
 
@@ -92,15 +92,15 @@ async function makeOrder(req: Request, res: Response) {
                         triggerDirection: 1,
                         isLeverage: 1,
                         triggerBy: 'LastPrice',
-                        takeProfit: tp.toFixed(4),
-                        stopLoss: sl.toFixed(4),
+                        takeProfit: tp.toFixed(2),
+                        stopLoss: sl.toFixed(2),
                         tpTriggerBy: "LastPrice",
                         slTriggerBy: "LastPrice",
                         tpslMode: 'Partial',
                         tpOrderType: 'Limit',
                         slOrderType: 'Limit',
-                        tpLimitPrice: tp.toFixed(4),
-                        slLimitPrice: sl.toFixed(4),
+                        tpLimitPrice: tp.toFixed(2),
+                        slLimitPrice: sl.toFixed(2),
                         positionIdx: 0,
                     });
 
