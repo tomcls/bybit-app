@@ -105,10 +105,10 @@ async function makeOrder(req: Request, res: Response) {
                     });
 
                     if(result && result.retMsg == "OK") {
-                        console.log(new Date() + "  order executed",result)
+                        console.log(new Date() + "  Order executed",result)
                         res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
                     } else {
-                        console.log(new Date() + "  error ",result)
+                        console.log(new Date() + "  Error placing an order ",result)
                         res.status(200).json({ "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
                     }
                     
@@ -117,7 +117,8 @@ async function makeOrder(req: Request, res: Response) {
                     res.status(200).json({ "message": "Position already open", "data": position.result })
                 }
             } else {
-                res.status(501).json({ error: true, message: "NNo account input provided" })
+                console.log({ error: true, message: "No account input provided" })
+                res.status(501).json({ error: true, message: "No account input provided" })
             }
 
 
@@ -128,11 +129,12 @@ async function makeOrder(req: Request, res: Response) {
 
 
         } else {
-            console.log("Request wasnt Sent check for an error")
+            console.log({ error: true, message: "Payload not provided" })
             res.status(502).json({ error: true })
         }
 
     } catch (error) {
+        console.log({ error: true, message: error })
         console.log("Failed to request", error)
 
     }
