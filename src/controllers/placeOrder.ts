@@ -1,18 +1,25 @@
 import { Request, Response } from "express";
 import { ConfigParams } from "../config/config";
 import { ByBitApi } from "../exchange/helper";
-
+import {RedisClientType, createClient} from 'redis'
 
 async function makeOrder(req: Request, res: Response) {
     try {
-        console.log(new Date() + " Place Order Controller body=", req.body);
+        //console.log(new Date() + " Place Order Controller body=", req.body);
 
         if (req.body) {
             const payload = req.body;
             let account: string = payload.account ?? null; // BYBIT_TEST1
             if (account) {
-                
-                let isTestnet = true;
+                const client = createClient({
+                    url: ConfigParams.REDIS_URL
+                });
+
+                await client.connect();
+                console.log(`Publishing message on ${account}`,JSON.stringify(payload));
+                await client.publish(account, JSON.stringify(payload));
+                res.status(200).json({ "message": `Publishing message on ${account}`, "data": payload })
+                /*let isTestnet = true;
                 if(account.includes("TEST")){
                     isTestnet = true;
                 } else {
@@ -115,7 +122,7 @@ async function makeOrder(req: Request, res: Response) {
                 } else {
                     console.log('Position already opened', position.result);
                     res.status(200).json({ "message": "Position already open", "data": position.result })
-                }
+                }*/
             } else {
                 console.log({ error: true, message: "No account input provided" })
                 res.status(501).json({ error: true, message: "No account input provided" })

@@ -1,6 +1,7 @@
 import * as express from 'express';
 //import { configureMiddlewares } from './middlewares/config';
 import { ConfigureRoutes } from './routes';
+import {Queue} from './queue';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 //import * as cookieParser from 'cookie-parser';
@@ -20,3 +21,5 @@ ConfigureRoutes(app)
 app.listen(3000, () => {
     console.log('Server listening on port 3000! We are Good to go');
 });
+
+Queue();
