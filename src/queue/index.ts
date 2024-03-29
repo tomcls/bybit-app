@@ -118,7 +118,7 @@ const placeOrder = async (payload: any) => {
                 symbol: symbol,
                 side: positionSide === 'LONG' ? 'Buy' : 'Sell',
                 orderType: "Market",
-                qty: qty.toFixed(3),
+                qty: qty.toFixed(2),
                 triggerDirection: 1,
                 isLeverage: 1,
                 triggerBy: 'LastPrice',
@@ -135,9 +135,9 @@ const placeOrder = async (payload: any) => {
             });
 
             if (result && result.retMsg == "OK") {
-                console.log(new Date() + "  Order executed", { "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
+                console.log(new Date() + "  Order executed", JSON.stringify( { "lastPrice": lastPrice, "balance": balance, "qty": qty.toFixed(2), "tp": tp.toFixed(2), "sl": sl.toFixed(2), "result": result, "leverage": l }))
             } else {
-                console.log(new Date() + "  Error placing an order ", { "lastPrice": lastPrice, "balance": balance, "qty": qty, "tp": tp, "sl": sl, "result": result, "leverage": l })
+                console.log(new Date() + "  Error placing an order ", JSON.stringify({ "lastPrice": lastPrice, "balance": balance, "qty": qty.toFixed(2), "tp": tp.toFixed(2), "sl": sl.toFixed(2), "result": result, "leverage": l }))
             }
 
         } else {

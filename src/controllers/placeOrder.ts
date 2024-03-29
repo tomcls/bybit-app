@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ConfigParams } from "../config/config";
-import { ByBitApi } from "../exchange/helper";
-import {RedisClientType, createClient} from 'redis'
+import { createClient} from 'redis'
 
 async function makeOrder(req: Request, res: Response) {
     try {

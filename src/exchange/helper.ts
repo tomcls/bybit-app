@@ -1,4 +1,4 @@
-import { CategoryV5, GetTickersParamsV5, GetWalletBalanceParamsV5, OrderFilterV5, OrderParamsV5, OrderResultV5, OrderSideV5, OrderTimeInForceV5, OrderTriggerByV5, OrderTypeV5, PositionInfoParamsV5, RestClientV5, SetLeverageParamsV5, SetTradingStopParamsV5, TPSLModeV5, WalletBalanceV5 } from "bybit-api";
+import { CategoryV5, GetInstrumentsInfoParamsV5, GetTickersParamsV5, GetWalletBalanceParamsV5, OrderFilterV5, OrderParamsV5, OrderResultV5, OrderSideV5, OrderTimeInForceV5, OrderTriggerByV5, OrderTypeV5, PositionInfoParamsV5, RestClientV5, SetLeverageParamsV5, SetTradingStopParamsV5, TPSLModeV5, WalletBalanceV5 } from "bybit-api";
 
 export class ByBitApi {
 
@@ -18,6 +18,11 @@ export class ByBitApi {
     }
     position = async (params: PositionInfoParamsV5) => {
         const o = await this.client.getPositionInfo(params);
+        return o;
+    }
+
+    info = async (params: GetInstrumentsInfoParamsV5) => {
+        const o = await this.client.getInstrumentsInfo(params);
         return o;
     }
     sl = async (params: SetTradingStopParamsV5) => {
